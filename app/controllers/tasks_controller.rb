@@ -29,13 +29,15 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    @task.destroy!
+    @task.destroy
     redirect_to tasks_path
   end
 
   private
 
   def task_params
+    # *Strong params*: You need to *whitelist* what can be updated by the user
+    # Never trust user data!
     params.require(:task).permit(:title, :details, :completed)
   end
 end
